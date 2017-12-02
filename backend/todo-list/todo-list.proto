@@ -7,7 +7,7 @@ option java_outer_classname = "TodoListProto";
 package todolist;
 
 service TodoList {
-	rpc AddTodo(TodoRequest) returns TodoReply {}
+	rpc AddTodo(TodoRequest) returns (TodoReply) {}
 }
 
 message TodoRequest {
