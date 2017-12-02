@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.imeyer.todolist";
+option java_outer_classname = "TodoListProto";
+
+package todolist;
+
+service TodoList {
+	rpc AddTodo(TodoRequest) return TodoReply {}
+}
+
+message TodoRequest {
+	string name = 1;
+}
+
+message TodoReply {
+	string name = 1;
+}
