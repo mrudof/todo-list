@@ -4,21 +4,20 @@ import (
 	"log"
 	"net"
 
-	"golang.org/x/net/context"
+	// "golang.org/x/net/context"
+	"github.com/mrudof/todo-list/backend/todolist"
 	"google.golang.org/grpc"
-	pb "github.com/mrudof/todo-list/backend/todo-list"
 )
 
 const (
 	port = ":50051"
 )
 
-// server is used to implement helloworld.GreeterServer.
 type server struct{}
 
-// SayHello implements helloworld.GreeterServer
-func (s *server) AddTodo(ctx context.Context, in *pb.TodoRequest) (*pb.TodoReply, error) {
-	return &pb.TodoReply{Name: "This todo is for " + in.Name}, nil
+func (s *server) ListTodos(todo *todolist.Todo, stream todolist.TodoList_ListTodosServer) error {
+	stream.Send(&todolist.Todo{Id: 1, Title: "First", DueDate: "asdf", Owner: "mrudof"})
+	return nil
 }
 
 func main() {
@@ -26,9 +25,12 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
+
 	s := grpc.NewServer()
-	pb.RegisterTodoListServer(s, &server{})
+
+	todolist.RegisterTodoListServer(s, &server{})
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
+	s.Serve(lis)
 }
