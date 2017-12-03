@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package todolist;
+
+service TodoList {
+	rpc ListTodos(Todo) returns (stream Todo) {
+		option (google.api.http) = {
+			get: "/api/todo/list"
+		};
+	}
+}
+
+message Todo {
+	int32 id = 1;
+	string title = 2;
+	string due_date = 3;
+	string owner = 4;
+}
