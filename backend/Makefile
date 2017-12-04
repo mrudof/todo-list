@@ -7,5 +7,5 @@ proto:
 	protoc -I todolist -I. \
 		-I${GOPATH}/src \
 		-I${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
-		--go_out=plugins=grpc:todolist \
+		--grpc-gateway_out=logtostderr=true:todolist \
 		todolist/todolist.proto
