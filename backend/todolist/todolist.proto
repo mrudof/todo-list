@@ -17,4 +17,10 @@ message Todo {
 	string title = 2;
 	string due_date = 3;
 	string owner = 4;
+	State state = 5;
+
+	enum State {
+		NOT_COMPLETED = 0;
+		COMPLETED = 1;
+	}
 }
