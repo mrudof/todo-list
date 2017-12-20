@@ -26,7 +26,7 @@ func (s *server) ListTodos(todo *todolist.Todo, stream todolist.TodoList_ListTod
 	return nil
 }
 
-func main() {
+func serve() error {
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
@@ -65,5 +65,9 @@ func main() {
 	r.Handler("GET", "/metrics", promhttp.Handler())
 	r.Handler("GET", "/api/todo/list", mux)
 	logger.Info("Starting server on :8080")
-	http.ListenAndServe(":8080", r)
+	return http.ListenAndServe(":8080", r)
+}
+
+func main() {
+	serve()
 }

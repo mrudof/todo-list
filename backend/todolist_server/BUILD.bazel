@@ -1,0 +1,27 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["main.go"],
+    importpath = "github.com/mrudof/todolist/todolist_server",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//todolist_server/vendor/github.com/grpc-ecosystem/go-grpc-middleware:go_default_library",
+        "//todolist_server/vendor/github.com/grpc-ecosystem/go-grpc-middleware/logging/zap:go_default_library",
+        "//todolist_server/vendor/github.com/grpc-ecosystem/go-grpc-prometheus:go_default_library",
+        "//todolist_server/vendor/github.com/grpc-ecosystem/grpc-gateway/runtime:go_default_library",
+        "//todolist_server/vendor/github.com/julienschmidt/httprouter:go_default_library",
+        "//todolist_server/vendor/github.com/mrudof/todo-list/backend/todolist:go_default_library",
+        "//todolist_server/vendor/github.com/prometheus/client_golang/prometheus/promhttp:go_default_library",
+        "//todolist_server/vendor/go.uber.org/zap:go_default_library",
+        "//todolist_server/vendor/golang.org/x/net/context:go_default_library",
+        "//todolist_server/vendor/google.golang.org/grpc:go_default_library",
+    ],
+)
+
+go_binary(
+    name = "todolist_server",
+    embed = [":go_default_library"],
+    importpath = "github.com/mrudof/todolist/todolist_server",
+    visibility = ["//visibility:public"],
+)
